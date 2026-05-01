@@ -94,7 +94,7 @@ st.markdown("""
 - **Nguồn**: Wikipedia tiếng Việt dump file
 - **Format**: XML compressed (bz2)
 - **Số lượng**: 100,000+ articles
-- **Dung lượng**: ~10GB raw data
+- **Dung lượng**: ~6GB raw data
 
 ### Workflow
 
@@ -128,8 +128,6 @@ st.markdown("""
 
 4. **Index to Elasticsearch**
    ```bash
-   python elasticsearch/create_index.py
-   python elasticsearch/ingest_wiki_docs.py
    python elasticsearch/index_all_data.py
    ```
 
@@ -212,4 +210,40 @@ except Exception as e:
     st.error(f"Không thể lấy thống kê: {str(e)}")
 
 st.markdown("---")
+
+with st.expander("Tham khảo: mapping một số index Elasticsearch"):
+    st.markdown("**wiki_docs** (trường chính)")
+    st.code(
+        """{
+  "mappings": {
+    "properties": {
+      "page_id": { "type": "keyword" },
+      "title": {
+        "type": "text",
+        "fields": { "keyword": { "type": "keyword" } }
+      },
+      "timestamp": { "type": "date" },
+      "categories": { "type": "keyword" },
+      "text": { "type": "text" }
+    }
+  }
+}""",
+        language="json",
+    )
+    st.markdown("**wiki_trend** (ví dụ)")
+    st.code(
+        """{
+  "mappings": {
+    "properties": {
+      "year": { "type": "keyword" },
+      "month": { "type": "keyword" },
+      "keyword": { "type": "keyword" },
+      "count": { "type": "integer" },
+      "date": { "type": "date", "format": "yyyy-MM" }
+    }
+  }
+}""",
+        language="json",
+    )
+
 st.caption("Wikipedia Search System | Powered by Hadoop + Elasticsearch + Streamlit")

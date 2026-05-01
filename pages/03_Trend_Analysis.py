@@ -77,7 +77,7 @@ elif df_trend is not None and len(df_trend) > 0:
     st.markdown("---")
     
     # Top keywords
-    st.subheader("Top 20 từ khóa phổ biến nhất")
+    st.subheader("Top từ khóa phổ biến nhất")
     
     top_keywords = df_trend.groupby('keyword')['count'].sum().sort_values(ascending=False).head(20)
     
