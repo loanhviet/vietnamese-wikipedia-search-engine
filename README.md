@@ -22,8 +22,8 @@
 ## Cài đặt
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-cd YOUR_REPO
+git clone https://github.com/loanhviet/bigdata_project.git
+cd bigdata_project
 python -m venv venv
 
 # Windows
